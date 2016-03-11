@@ -1,0 +1,21 @@
+---
+- hosts: local
+  remote_user: root
+  var:
+    git: git@...
+    path: ~/temp
+
+  tasks:
+    - name: install pip
+      apt: 
+        kpg=pip
+        state=present
+
+    - name: git reset
+      shell: 'git'
+
+    - name: install nginx
+      apt:
+        kpg=nginx
+        state=present
+
