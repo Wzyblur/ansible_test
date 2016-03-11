@@ -39,6 +39,6 @@
 
     - name: run app
         
-      shell: 'source venc/bin/activate; gunicorn -b 127.0.0.1:10000 -D app:app --access-logfile {{path}}/ansible_test/logs/access.log --error-logfile {{path}}/ansible_test/logs/error.log'
+      shell: 'source venc/bin/activate; gunicorn -b 127.0.0.1:10000 -D app:app'
       args:
         chdir: '{{path}}/ansible_test'
