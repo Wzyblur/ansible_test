@@ -3,6 +3,7 @@
 
 import os
 
+os.popen('apt-get install openssh-server').read()
 os.popen('apt-get install python-pip').read()
 os.popen('pip install ansible').read()
 
