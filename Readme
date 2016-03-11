@@ -1,0 +1,11 @@
+#ansible_test
+
+这是一个用ansbile部署一个web应用的测试项目;
+
+run:
+
+1. sudo ./run.py
+
+2. ansible-playbook deploy.yaml -i hosts
+
+
