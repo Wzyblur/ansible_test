@@ -1,6 +1,8 @@
 #ansible_test
 
-这是一个用ansbile部署一个web应用的测试项目;
+这是一个用ansbile部署一个web应用的测试项目, 从github中获取web应用代码再部署到远程服务器(本例子中是127.0.0.1),最后启动web应用(gunicorn作为wsgi服务器 bottle为web框架,还为设置nginx反向代理,待处理);
+只能运行在debian系统中;
+
 
 run:
 
@@ -8,4 +10,4 @@ run:
 
 2. ansible-playbook deploy.yaml -i hosts
 
-
+打开浏览器，输入  http://127.0.0.1:10000/hello_world 可以看到输出。

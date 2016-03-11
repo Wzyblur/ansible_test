@@ -8,7 +8,7 @@ app = Bottle()
 
 @app.route(path='/hello_world', method=['GET'])
 def hello_world():
-    return "Hello world!"
+    return "Hello world!\n ansbile 是不是很吊 哈哈"
 
 
 if __name__ == '__main__':
