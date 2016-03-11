@@ -12,5 +12,5 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    run(app, host='0.0.0.0', port=10000, reloader=True)
+    run(app, host='0.0.0.0', port=10001, reloader=True)
 

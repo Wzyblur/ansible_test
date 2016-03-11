@@ -3,7 +3,7 @@
   remote_user: piaotiejun
   vars:
     git: git@github.com:piaotiejun/ansible_test.git
-    path: ~/tmp
+    path: ~/temp
 
   tasks:
     - name: install pip
@@ -17,10 +17,10 @@
     - name: init virtualenv
       shell: 'virtualenv venc'
 
-    - name: git clone
-      shell: 'git clone {{git}}'
-      args:
-        chdir: '{{path}}'
+    #- name: git clone
+    #  shell: 'git clone {{git}}'
+    #  args:
+    #    chdir: '{{path}}'
 
     - name: git reset
       shell: 'git reset --hard HEAD; git pull'
@@ -42,3 +42,4 @@
       shell: 'source venc/bin/activate; gunicorn -b 127.0.0.1:10000 -D app:app'
       args:
         chdir: '{{path}}/ansible_test'
+   
