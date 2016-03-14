@@ -3,9 +3,13 @@
 
 import os
 
-os.popen('apt-get install openssh-server').read()
-os.popen('apt-get install python-pip').read()
-os.popen('pip install ansible').read()
+try:
+    os.popen('mkdir ~/temp').read()
+    os.popen('apt-get install openssh-server').read()
+    os.popen('apt-get install python-pip').read()
+    os.popen('pip install ansible').read()
+except:
+    pass
 
 uname = os.popen('whoami').read().strip()
 os.popen('ssh-copy-id %s@127.0.0.1'%uname)

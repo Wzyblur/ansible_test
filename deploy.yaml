@@ -3,7 +3,7 @@
   remote_user: piaotiejun
   vars:
     git: git@github.com:piaotiejun/ansible_test.git
-    path: ~/tmp
+    path: ~/temp
 
   tasks:
     - name: install pip
