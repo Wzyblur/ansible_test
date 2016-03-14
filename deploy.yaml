@@ -14,13 +14,15 @@
     - name: install virtualenv
       shell: 'pip install virtualenv'
 
-    - name: init virtualenv
-      shell: 'virtualenv venc'
-
     - name: git clone
       shell: 'git clone {{git}}'
       args:
         chdir: '{{path}}'
+
+    - name: init virtualenv
+      shell: 'virtualenv venc'
+      args:
+        chdir: '{{path}}/ansible_test'
 
     - name: git reset
       shell: 'git reset --hard HEAD; git pull'
