@@ -39,6 +39,6 @@
 
     - name: run app
         
-      shell: 'source venc/bin/activate; gunicorn -b 127.0.0.1:10000 -D app:app'
+      shell: 'source venc/bin/activate; gunicorn -b 127.0.0.1:10000 -k gevent -D wsgi:app'
       args:
         chdir: '{{path}}/ansible_test'
