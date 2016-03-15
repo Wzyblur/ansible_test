@@ -1,6 +1,6 @@
 ---
 - hosts: local
-  remote_user: piaotiejun
+  remote_user: root
   vars:
     git: git@github.com:piaotiejun/ansible_test.git
     path: ~/temp
@@ -14,10 +14,10 @@
     - name: install virtualenv
       shell: 'pip install virtualenv'
 
-    - name: git clone
-      shell: 'git clone {{git}}'
-      args:
-        chdir: '{{path}}'
+    #- name: git clone
+    #  shell: 'git clone {{git}}'
+    #  args:
+    #    chdir: '{{path}}'
 
     - name: init virtualenv
       shell: 'virtualenv venc'
