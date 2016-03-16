@@ -3,7 +3,7 @@
 import multiprocessing
 
 # 监听端口
-bind = '127.0.0.1:10000'
+bind = '0.0.0.0:10000'
 
 # 工作进程数  即gunicorn进程的数量(1) 另外有一个master进程 杀死gunicorn进程只需要杀死master进程即可 pid记录的也是master进程
 workers = multiprocessing.cpu_count() * 2 + 1 # 工作进程9 master进程1
@@ -34,7 +34,7 @@ timeout = 30
 # 从接到重启命令后到重启间的时间(用以处理请求的时间)(30)
 graceful_timeout = 30
 
-# 长连接时间(2)
+# 长连接时间(2s)
 keepalive = 2
 
 # 请求行(resquest-_line)的最大字节数[0, 8190](4094)
@@ -49,7 +49,7 @@ limit_request_fields = 100
 limit_request_field_size = 8190
 
 # 代码改动时是否重启(False) 开发环境中使用
-reload = False
+reload = True
 
 # TODO
 # 跟踪服务器执行的所有命令(False)
@@ -85,12 +85,13 @@ group = None
 # 默认一般是002 即从777 - 002 = 775
 # 7是自己对文件的权限4(读)+2(写)+1(执行)
 # 之后的5/5是与文件所有者同一组的用户的权限/不与文件所有者同组的其他用户的权限
-umask = 0x002
+umask = 0002 # 八进制
 
 # TODO
 # 请求的ip安全列表逗号分隔('127.0.0.1')
 #forwarded_allow_ips = '127.0.0.1,192.168.0.144'
-forwarded_allow_ips = '0.0.0.0'
+#forwarded_allow_ips = '127.0.0.1'
+#forwarded_allow_ips = '*'
 
 # access log文件路径 不识别~
 accesslog = '/home/piaotiejun/temp/ansible_test/log/access.log'
@@ -98,7 +99,7 @@ accesslog = '/home/piaotiejun/temp/ansible_test/log/access.log'
 # error log路径 不识别~
 errorlog = '/home/piaotiejun/temp/ansible_test/log/error.log'
 
-# access_log_format
+# access log文件一个记录的格式
 """
 h       remote address
 l       '-'
@@ -121,8 +122,28 @@ p       process ID
 {Header}i       request header
 {Header}o       response header
 """
-access_log_format = '%(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s" %(h)s %(p)s %({refer})s ({host})s'
+#access_log_format = '{"status:" %(u)s, ""%(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s" %(h)s %(p)s %({host}i)s %({Accept-Language}i)s %({X-Forwarded-For}i)s  %({X-Real-IP}i)s ""%({Host}i)s "service date:"%({Date}o)s}'
 
-
-
-
+access_log_format = """{\
+"request time in seconds": "%(T)s", \
+"request time in microseconds": "%(D)s", \
+"request time in decimal seconds": "%(L)s", \
+"remote address": "%(h)s", \
+"user name": "%(u)s", \
+"date of request": "%(t)s", \
+"status line": "%(r)s", \
+"request method": "%(m)s", \
+"url path without query string": "%(U)s", \
+"query string": "%(q)s", \
+"protocol": "%(H)s", \
+"status": "%(s)s", \
+"response length": "%(B)s", \
+"response length or (CLF format)": "%(b)s", \
+"referer": "%(f)s", \
+"user agent": "%(a)s", \
+"worker process id": "%(p)s", \
+"X-Forwarded-For": "%({X-Forwarded-For}i)s", \
+"X-Real-IP": "%({X-Real-IP}i)s", \
+"Host": "%({Host}i)s", \
+"": "%({}o)s"\
+}"""
