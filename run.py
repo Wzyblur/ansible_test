@@ -5,8 +5,20 @@ import os
 
 try:
     os.popen('mkdir ~/temp').read()
+except:
+    pass
+
+try:
     os.popen('apt-get install openssh-server').read()
+except:
+    pass
+
+try:
     os.popen('apt-get install python-pip').read()
+except:
+    pass
+
+try:
     os.popen('pip install ansible').read()
 except:
     pass

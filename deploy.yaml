@@ -1,6 +1,6 @@
 ---
 - hosts: local
-  remote_user: root
+  remote_user: piaotiejun
   vars:
     git: git@github.com:piaotiejun/ansible_test.git
     path: ~/temp
@@ -41,6 +41,6 @@
 
     - name: run app
         
-      shell: 'source venc/bin/activate; gunicorn -b 127.0.0.1:10000 -k gevent -D wsgi:app'
+      shell: 'source venc/bin/activate; gunicorn -b 127.0.0.1:10000 -k gevent -D wsgi:bottle_app'
       args:
         chdir: '{{path}}/ansible_test'

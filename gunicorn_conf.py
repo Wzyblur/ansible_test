@@ -1,5 +1,8 @@
 #coding=utf8
 
+# http://docs.gunicorn.org/en/latest/settings.html
+
+
 import multiprocessing
 
 # 监听端口
@@ -87,10 +90,10 @@ group = None
 # 之后的5/5是与文件所有者同一组的用户的权限/不与文件所有者同组的其他用户的权限
 umask = 0002 # 八进制
 
-# TODO
+# TODO 测试结果不对 待测试
 # 请求的ip安全列表逗号分隔('127.0.0.1')
 #forwarded_allow_ips = '127.0.0.1,192.168.0.144'
-#forwarded_allow_ips = '127.0.0.1'
+forwarded_allow_ips = '1.12.0.1'
 #forwarded_allow_ips = '*'
 
 # access log文件路径 不识别~
@@ -117,7 +120,7 @@ f       referer
 a       user agent
 T       request time in seconds
 D       request time in microseconds
-L       request time in decimal seconds
+L       request time in decimal seconds 处理请求用时
 p       process ID
 {Header}i       request header
 {Header}o       response header
@@ -147,3 +150,79 @@ access_log_format = """{\
 "Host": "%({Host}i)s", \
 "": "%({}o)s"\
 }"""
+
+# 错误日志的输出级别[debug, info, warrning, error, critical](info)
+loglevel = 'debug'
+
+# 将gunicon log写入syslog(False)
+# syslog的配置文件为/etc/syslog.conf 我的电脑ubuntu14.04保存在/etc/rsyslog.conf
+syslog = False
+
+# syslog输入地址 默认地址可以查看/etc/services('udp://localhost:514')
+syslog_addr = 'tcp://localhost/514'
+
+# 加入到python sys.path的模块(None) 多个模块之间逗号分隔 例如:'/home/djangoprojects/myproject,/home/python/mylibrary'
+pythonpath = None
+
+# TODO 测试结果不对 待测试
+# 允许的代理请求ip,逗号分隔('127.0.0.1')
+proxy_allow_ips = '127.0.0.1'
+
+# TODO SSH设置
+
+# hooks Called just before the master process is initialized
+def on_starting(server):
+    pass
+
+# hooks Called to recycle workers during a reload via SIGHUP
+def on_reload(server):
+    pass
+
+# hooks Called just after the server is started
+def when_ready(server):
+    pass
+
+# hooks Called just before a worker is forked
+def pre_fork(server, worker):
+    pass
+
+# hooks Called just after a worker has been forked
+def post_fork(server, worker):
+    pass
+
+# hooks Called just after a worker has initialized the application
+def post_worker_init(worker):
+    pass
+
+# hooks Called just after a worker exited on SIGINT or SIGQUIT
+def worker_int(worker):
+    pass
+
+# hooks Called when a worker received the SIGABRT signal
+def worker_abort(worker):
+    pass
+
+# hooks Called just before a new master process is forked
+def pre_exec(server):
+    pass
+
+# hooks Called just before a worker processes the request
+def pre_request(worker, req):
+    worker.log.info("%s %s %s" % (req.method, req.path, str(req.__dict__)))
+
+# hooks Called after a worker processes the request
+def post_request(worker, req, environ, resp):
+    pass
+
+# hooks Called just after a worker has been exited
+def worker_exit(server, worker):
+    pass
+
+# hooks Called just after num_workers has been changed
+def nworkers_changed(server, new_value, old_value):
+    pass
+
+# hooks Called just before exiting Gunicorn
+def on_exit(server):
+    server.log.info("exit")
+    open('/home/piaotiejun/temp/ansible_test/log/test.log', 'w').write(str(server.__dict__))

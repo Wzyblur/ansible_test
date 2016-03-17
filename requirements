@@ -2,7 +2,6 @@ virtualenv
 bottle
 gunicorn==19.3.0
 sqlalchemy
-mysql
 flask
 gevent
 tornado
