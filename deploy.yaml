@@ -3,7 +3,7 @@
   remote_user: piaotiejun
   vars:
     git: git@github.com:piaotiejun/ansible_test.git
-    path: ~/tmp
+    path: ~/temp
 
   tasks:
     - name: install pip
@@ -23,7 +23,8 @@
         chdir: '{{path}}'
 
     - name: git reset
-      shell: 'git reset --hard HEAD; git pull'
+      #shell: 'git reset --hard HEAD; git pull'
+      shell: 'git checkout v1'
       args:
         chdir: '{{path}}/ansible_test'
 
