@@ -11,12 +11,6 @@
         pkg=python-pip
         state=present
 
-    - name: install virtualenv
-      shell: 'pip install virtualenv'
-
-    - name: init virtualenv
-      shell: 'virtualenv venc'
-
     - name: git clone
       shell: 'git clone {{git}}'
       args:
@@ -27,6 +21,16 @@
       shell: 'git checkout v1'
       args:
         chdir: '{{path}}/ansible_test'
+
+    - name: install virtualenv
+      shell: 'pip install virtualenv'
+      args:
+        chdir: '{{path}}'
+
+    - name: init virtualenv
+      shell: 'virtualenv venc'
+      args:
+        chdir: '{{path}}'
 
     - name: update python
       shell: 'source venc/bin/activate; pip install -r requirements'
