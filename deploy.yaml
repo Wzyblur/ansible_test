@@ -25,12 +25,12 @@
     - name: install virtualenv
       shell: 'pip install virtualenv'
       args:
-        chdir: '{{path}}'
+        chdir: '{{path}}/ansible_test'
 
     - name: init virtualenv
       shell: 'virtualenv venc'
       args:
-        chdir: '{{path}}'
+        chdir: '{{path}}/ansible_test'
 
     - name: update python
       shell: 'source venc/bin/activate; pip install -r requirements'
